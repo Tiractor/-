@@ -70,6 +70,7 @@ char Lab19_Second()
         i--;
     }
     }
+    cout << mass.size() << endl;
     MassOutput();
 
     return ' ';
