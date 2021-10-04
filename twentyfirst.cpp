@@ -259,8 +259,6 @@ void Menu() {
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	MassBaseInit();
-	MatrixBaseInit();
 	int c, a;
 	cout << "Коли хочешь свой матрицу пиши 1. Иначе пиши 0" << endl;
 	cin >> c;
