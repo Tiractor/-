@@ -37,6 +37,8 @@ void MassCustomInit() {
 }
 
 void MassOutput() {
+	cout << endl;
+	cout << endl;
 	for (int i = 0; i < mass.size(); i++) {
 		cout << mass[i] << " ";
 	}
@@ -89,12 +91,15 @@ void MatrixBaseInit() {
 }
 
 void MatrixOutput() {
+	cout << endl;
+	cout << endl;
 	for (int i = 0; i < matrix.size(); i++) {
 		for (int j = 0; j < matrix[i].size(); j++) {
 			cout << matrix[i][j] << " ";
 		}
 		cout << endl;
 	}
+	cout << endl;
 }
 
 void MatrixRotate() {
@@ -223,7 +228,10 @@ void Menu() {
 	system("cls");
 	cout << "Введи цифру от 1 до 5";
 	cin >> c;
-	if (AutoOut) MatrixOutput();
+	if (AutoOut) {
+		cout << endl <<"Далее выводится матрица до обработки" << endl;
+		MatrixOutput();
+	}
 	if (c == 1) cout << Lab22_First();
 	else if (c == 2) cout << Lab22_Second();
 	else if (c == 3) cout << Lab22_Third();
@@ -234,8 +242,6 @@ void Menu() {
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	MassBaseInit();
-	MatrixBaseInit();
 	int c, a;
 	cout << "Коли хочешь свой матрицу пиши 1. Иначе пиши все что хочешь" << endl;
 	cin >> c;
