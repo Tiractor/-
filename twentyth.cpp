@@ -70,14 +70,19 @@ char Lab20_First()
 {
 	vector <int> C, B;
 	int cou = 1;
-	for (int i = 1; i < mass.size(); i++) {
-		if (mass[i] == mass[i - 1]) {
+	for (int i = 1; i <= mass.size(); i++) {
+		if (mass.size() == i) {
+			B.push_back(cou);
+			cou = 1;
+			C.push_back(mass[i - 1]);
+		}
+		else if (mass[i] == mass[i - 1]) {
 			cou++;
 		}
 		else {
 			B.push_back(cou);
 			cou = 1;
-			C.push_back(mass[i]);
+			C.push_back(mass[i-1]);
 		}
 	}
 	for (int i = 0; i < B.size(); i++) {
@@ -105,9 +110,8 @@ char Lab20_Second()
 			if (cou > L) {
 
 				int temp = mass[i - cou + 2];
-				cout << temp << endl;
 				mass[i - cou + 2] = 0;
-				for (int j = i - cou + 2; j < i; j++) {
+				for (int j = i - cou + 1; j < i; j++) {
 					if (mass[j] == temp) {
 						mass.erase(mass.begin() + j);
 						j--;
@@ -117,7 +121,6 @@ char Lab20_Second()
 			}
 		}
 	}
-	mass.pop_back();
 	MassOutput();
 	return ' ';
 }
@@ -128,33 +131,37 @@ char Lab20_Third()
 	cout << "Please input K -";
 	int K = 2;
 	cin >> K;
+	cout << endl;
 	int cou = 1;
-	for (int i = 1; i < mass.size(); i++) {
-		if (mass[i] == mass[i - 1]) {
+	for (int i = 1; i <= mass.size(); i++) {
+		if (mass.size() == i) {
+			B.push_back(cou);
+			cou = 1;
+			C.push_back(mass[i - 1]);
+		}
+		else if (mass[i] == mass[i - 1]) {
 			cou++;
 		}
 		else {
 			B.push_back(cou);
 			cou = 1;
-			C.push_back(mass[i]);
+			C.push_back(mass[i - 1]);
 		}
 	}
 	vector <int> array;
-	for (int i = 0; i < B.size() - 1; i++) {
-		if (i != K - 1) {
-			for (int j = 0; j < B[i]; j++) {
-				array.push_back(C[i]);
-			}
-		}
-		else {
-			for (int j = 0; j < B[B.size() - 1]; j++) {
-				array.push_back(C[B.size() - 1]);
-			}
+	int temp = C[K - 1]; // Значение элементов серии K
+	int ttemp = B[K - 1]; // Длина элементов серии K
+	C[K - 1] = C[C.size() - 1];
+	B[K - 1] = B[B.size() - 1];
+	B[B.size() - 1] = ttemp;
+	C[C.size() - 1] = temp;
+
+	for (int i = 0; i < C.size();++i) {
+		for (int j = 0; j < B[i]; ++j) {
+			array.push_back(C[i]);
 		}
 	}
-	for (int j = 0; j < B[K - 1]; j++) {
-		array.push_back(C[K - 1]);
-	}
+	
 	mass = array;
 	MassOutput();
 	return ' ';
@@ -186,6 +193,11 @@ char Lab20_Fifth()
 	if (c == 1) {
 		PointCustomInit();
 	}
+	vector <int> u{ 0 };
+	Perim.push_back(u);
+	Perim.push_back(u);
+	Perim.push_back(u);
+	Perim.push_back(u);
 	for (int i = 0; i < X.size(); ++i) {
 		for (int j = i + 1; j < X.size(); ++j) {
 			for (int g = j + 1; g < X.size(); ++g) {
@@ -195,14 +207,15 @@ char Lab20_Fifth()
 				Perim[0].push_back(a + b + с); // Периметр
 				Perim[1].push_back(i); // Индекс точки 1
 				Perim[2].push_back(j); // Индекс точки 2
-				Perim[3].push_back(j); // Индекс точки 3
+				Perim[3].push_back(g); // Индекс точки 3
 			}
 		}
 	}
-	int f = distance(mass.begin(), max_element(Perim[0].begin(), Perim[0].end())); // Нужный столбец
+	int f = distance(Perim[0].begin(), max_element(Perim[0].begin(), Perim[0].end())); // Нужный столбец
 	int q = Perim[1][f]; // Индекс нужной точки 1
 	int w = Perim[2][f]; // Индекс нужной точки 2
 	int e = Perim[3][f]; // Индекс нужной точки 3
+	cout << Perim[0][f] << endl;
 	cout << X[q] << " " << Y[q] << endl;
 	cout << X[w] << " " << Y[w] << endl;
 	cout << X[e] << " " << Y[e] << endl;
@@ -226,6 +239,7 @@ int main()
 	cin >> c;
 	if (c == 1) MassCustomInit();
 	else MassBaseInit();
+	MassOutput();
 	Menu();
 	while (true) {
 		cout << endl << endl << "If you want switch question - write 1" << endl << "If you want switch array and switch quesion - write 2" << endl << "If you want end this - write 3" << endl;
@@ -242,7 +256,7 @@ int main()
 		else if (c == 3) exit(0);
 		else if (c == 4) MassOutput();
 	}
-	
+
 
 	return 0;
 }
