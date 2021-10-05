@@ -138,7 +138,7 @@ char Lab21_First()
 	int z = 0; // Сдвиг вывода
 	int x = 0;// Индекс сдвига столб
 	int y = 0;// Индекс сдвига строк
-	int Boy = matrix.size()*matrix[0].size(); // Количество элементов в прямоугольной матрице
+	int Boy = matrix.size() * matrix[0].size(); // Количество элементов в прямоугольной матрице
 	while (co < Boy) {
 		for (; x < matrix.size(); ++x) {
 			cout << matrix[x][y] << " ";
@@ -178,10 +178,12 @@ char Lab21_Second()
 {
 	int k = 0;
 	int sum = 0;
+	cout << "Введите число K";
+	cin >> k;
 	int pro = 1;
 	for (int i = 0; i < matrix[k].size(); i++) {
-		sum += matrix[k][i];
-		pro *= matrix[k][i];
+		sum += matrix[k-1][i];
+		pro *= matrix[k-1][i];
 	}
 	cout << sum << endl << pro;
 	return ' ';
@@ -247,7 +249,7 @@ char Lab21_Fifth()
 
 void Menu() {
 	int c;
-	cout << "Введи цифру от 1 до 5";
+	cout << "Введи цифру от 1 до 5. Хотите пропустить 1 запуск напишите любое другое число";
 	cin >> c;
 	if (c == 1) cout << Lab21_First();
 	else if (c == 2) cout << Lab21_Second();
@@ -260,6 +262,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int c, a;
+	cout << "Слава Русскому Освободительному Движению! Слава РОДу!" << endl;
 	cout << "Коли хочешь свой матрицу пиши 1. Иначе пиши 0" << endl;
 	cin >> c;
 	if (c == 1) MatrixCustomInit();
