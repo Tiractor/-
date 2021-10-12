@@ -14,10 +14,13 @@ using namespace std;
 using namespace std;
 vector <int> mass;
 
-string Stringer() {
-	string c;
-	getline(cin, c);
-	return c;
+string StringCreat() {
+	string x;
+	system("cls");
+	cout << "Введите строку" << endl;
+	cin.ignore();
+	getline(cin, x);
+	return x;
 }
 
 char Lab24_First()
@@ -25,14 +28,10 @@ char Lab24_First()
 	setlocale(LC_ALL, "Russian");
 	int z = 0;
 	string x = "А я Олег любит пить  пиво";
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	for (int i = 0; i < x.size(); ++i) {
-		char const* s = &x[i + 1];
-		cout << int(x[i]) << endl;
-		Sleep(1000);
-		if (NULL == x[i + 1] || i + 1 == x.size()) {
-			if (x[i] <= 'я' && x[i] >= 'А' ) ++z;
+		if (' ' == x[i + 1] || i == x.size()-1) {
+			if (x[i] <= 'я' && x[i] >= 'А') ++z;
 		}
 	}
 	cout << endl << z;
@@ -44,8 +43,7 @@ char Lab24_Second()
 	setlocale(LC_ALL, "Russian");
 	int z = 0;
 	string x = "А я Олег любит пить  пиво";
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	for (int i = 0; i < x.size(); ++i) {
 		if (x[i + 1] == ' ' || i + 1 == x.size()) {
 			for (int j = i; j > 0; --j) {
@@ -70,8 +68,7 @@ char Lab24_Third()
 	setlocale(LC_ALL, "Russian");
 	string x = "А я ОлОегО любит пить  пиво";
 	char y = ' ';
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	for (int i = 0; i < x.size(); ++i) {
 		if (x[i] == ' ') {
 			y = ' ';
@@ -92,8 +89,7 @@ char Lab24_Fourth()
 	setlocale(LC_ALL, "Russian");
 	string x = "А я ОлОегО любит пить  пиво";
 	int y = 0;
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	for (int i = 0; i < x.size(); ++i) {
 		if (x[i] == 'у' || x[i] == 'е' || x[i] == 'а' || x[i] == 'о' || x[i] == 'э' || x[i] == 'я' || x[i] == 'и' || x[i] == 'ю') {
 			y++;
@@ -110,8 +106,7 @@ char Lab24_Fifth()
 {
 	setlocale(LC_ALL, "Russian");
 	string x;
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	string y;
 	bool flag = false;
 	for (int i = x.size() - 2; i > 0; --i) {
@@ -129,8 +124,7 @@ char Lab24_Sixth()
 {
 	setlocale(LC_ALL, "Russian");
 	string x;
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	string y;
 	bool flag = false;
 	bool Sflag = false;
@@ -152,8 +146,7 @@ char Lab24_Seventh()
 	setlocale(LC_ALL, "Russian");
 	string x = "Программа";
 	string a, b;
-	cout << "Введите строку" << endl;
-	cin >> x;
+	x = StringCreat();
 	for (int i = 0; i < x.size(); ++i) {
 		if ((i + 1) % 2 == 0) a.push_back(x[i]);
 		else b.push_back(x[i]);
@@ -181,6 +174,9 @@ void Menu() {
 int main()
 {
 	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	string x;
 	int c;
 	Menu();
 	while (true) {
