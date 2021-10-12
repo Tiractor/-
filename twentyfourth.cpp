@@ -5,17 +5,20 @@
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include <cctype>
+#include <stdio.h>
 
 using namespace std;
-vector <int> mass;
-vector <int> X{ 1, 5, 9, 11, -6, -3 };
-vector <int> Y{ 1, -12, 0, 5, -6, 2 };
-vector<vector <int>> matrix;
-bool AutoOut = false;
 
 // Доп. Функции
 using namespace std;
 vector <int> mass;
+
+string Stringer() {
+	string c;
+	getline(cin, c);
+	return c;
+}
 
 char Lab24_First()
 {
@@ -25,12 +28,14 @@ char Lab24_First()
 	cout << "Введите строку" << endl;
 	cin >> x;
 	for (int i = 0; i < x.size(); ++i) {
-		if (x[i + 1] == ' ' || i + 1 == x.size()) {
-
-			if (int(x[i]) <= -1 && int(x[i]) >= -64) ++z;
+		char const* s = &x[i + 1];
+		cout << int(x[i]) << endl;
+		Sleep(1000);
+		if (NULL == x[i + 1] || i + 1 == x.size()) {
+			if (x[i] <= 'я' && x[i] >= 'А' ) ++z;
 		}
 	}
-	cout << z;
+	cout << endl << z;
 	return ' ';
 }
 
@@ -157,20 +162,20 @@ char Lab24_Seventh()
 	cout << a << b;
 	return ' ';
 }
+
 void Menu() {
 	int c;
 	system("cls");
-	cout << "Введи цифру от 1 до 5";
+	cout << "Введи цифру от 1 до 7";
 	cin >> c;
-	if (AutoOut) {
-		cout << endl <<"Далее выводится матрица до обработки" << endl;
-		MatrixOutput();
-	}
-	if (c == 1) cout << Lab23_First();
-	else if (c == 2) cout << Lab23_Second();
-	else if (c == 3) cout << Lab23_Third();
-	else if (c == 4) cout << Lab23_Fourth();
-	else if (c == 5) cout << Lab23_Fifth();
+	if (c == 1) cout << Lab24_First();
+	else if (c == 2) cout << Lab24_Second();
+	else if (c == 3) cout << Lab24_Third();
+	else if (c == 4) cout << Lab24_Fourth();
+	else if (c == 5) cout << Lab24_Fifth();
+	else if (c == 6) cout << Lab24_Sixth();
+	else if (c == 7) cout << Lab24_Seventh();
+	else cout << "Попробуй ещё раз";
 }
 
 int main()
@@ -183,7 +188,6 @@ int main()
 		cin >> c;
 		if (c == 1) Menu();
 		else if (c == 2) exit(0);
-
 	}
 	return 0;
 }
