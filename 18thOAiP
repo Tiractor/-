@@ -1,0 +1,200 @@
+#include <iostream>
+#include <iostream>
+#include <cstdio>
+#include <ctime>
+#include <vector>
+
+using namespace std;
+
+vector <int> ar;
+
+void Bubble(int N){
+    int i, j, buf;
+    for(i = 1; i <= N; i++){ // Реализация модифицированной сортировки параметрическим циклом
+        for(j = 1; j <= N - i; j++){
+            if(ar[j - 1] > ar[j]){
+            buf = ar[j];
+            ar[j] = ar[j - 1];
+            ar[j - 1] = buf;
+            }
+        }
+    }
+}
+
+void Comb(int N){
+        int i, j, buf;
+        int step = N-1;
+        float k = 1.2473309;
+        while(step >= 1){
+            for(i = 0; i < N - step; i++){
+                if(ar[i] > ar[i+step]){
+                buf = ar[i];
+                ar[i] = ar[i+step];
+                ar[i+step] = buf;
+                }
+            step /= k;
+            }
+        }
+}
+
+void Insert(int n){
+        int i, j, x;
+        for (i = 1; i < n; i++) {
+            x = ar[i];
+            j = i;
+            while (j > 0 && x < ar[j-1]) {
+                ar[j] = ar[j-1];
+                j--;
+            }
+            ar[j] = x;
+        }
+}
+
+void Shell(int n){
+    int i, x, d, j;
+    for (d = n / 2; d > 0; d /= 2) {
+        for (i = d; i < n; i++) {
+            x = ar[i];
+            for (j = i; j >= d; j -= d) {
+                if (x < ar[j - d])
+                    ar[j] = ar[j - d];
+                else break;
+            }
+            ar[j] = x;
+        }
+    }
+
+}
+
+void Selection(int N){
+        int i, j, min, buf;
+        for (i = 0; i < N - 1; i++) {
+            for (j = i + 1, min = i; j < N; j++){
+            if (ar[j] < ar[min]) min = j;
+            }
+            buf = ar[i];
+            ar[i] = ar[min];
+            ar[min] = buf;
+        }
+}
+
+void Dwarf(int N){
+    int i=1, j=2, buf;
+    while (i<N) {
+        if (ar[i-1]>ar[i]) {
+            buf=ar[i];
+            ar[i]=ar[i-1];
+            ar[i-1]=buf;
+            i--;
+            if (i>0) continue;
+        }
+        i=j++;
+    }
+
+
+
+}
+
+void qsortDW(int* arr, int b, int e) { // Реализация через цикл с постусловием. Хотя в т/з лабораторной сказано про параметр и предусловие
+    if(b < e){ // Выполняем функцию только если конец находится "правее" начала
+        int piv = arr[(b + e) / 2]; // Определение значения Опорного элемента
+        int l = b; // Крайний левый элемент итерации
+        int r = e; // Крайний правый элемент итерации
+        do {
+            for (;arr[l] < piv;++l);  // Ищем элемент левее опорного элемента, значение которого больше значения опорного
+            for (;arr[r] > piv;--r);  // Ищем элемент правее опорного элемента, значение которого меньше значения опорного
+            if (l <= r) // условие
+            {
+                int t = arr[l];
+                arr[l] = arr[r];
+                arr[r] = t; // Произвели обмен
+                l++;
+                r--;
+            }
+        } while (l <= r);
+        if (b < r) { // Проверка на логику. Правее ли "Правая переменная" относительно начала
+        qsortDW(arr,b,r);
+        }
+        if (e > l) { // Проверка на логику. Левее ли "Левая переменная" относительно конца
+        qsortDW(arr,l,e);
+        }
+    }
+}
+
+
+
+void Output(){
+    for(int j=0; j < ar.size(); j++) printf("%d ",ar[j]);
+    printf("\n");
+}
+
+void ArrayGeneration(int N){
+    ar.clear();
+    for(int i = 0;i < N; ++i){
+        ar.push_back(1 + rand() % (N*3));
+    }
+}
+
+int main() {
+    int arr[] = {9, 5, 7, 8, 4 };
+    int E[9] = {10, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000};
+    int start,finish,i = 0;
+        cout << endl << "Bubble sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Bubble(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Comb sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Comb(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Insert sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Insert(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Shell sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Shell(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Selection sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Selection(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Dwarf sort time: ";
+        for(i=0;i<9;++i){
+            ArrayGeneration(E[i]);
+            start = clock();
+            Dwarf(E[i]);
+            finish = clock();
+            cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+        }
+        cout << endl << "Qsort time: ";
+        for(i=0;i<9;++i){
+        ArrayGeneration(E[i]);
+        int arr[E[i]];
+        copy(ar.begin(), ar.end(), arr );
+        start = clock();
+        qsortDW(arr,0,E[i]-1);
+        finish = clock();
+        cout <<  float(finish - start) / CLOCKS_PER_SEC << " ";
+    }
+}
